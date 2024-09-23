@@ -1,15 +1,5 @@
-from openai import OpenAI
+from src.chat_gpt import request_chatGPT_API
 
 def main() -> None:
-    client = OpenAI()
-
-    completion = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        # {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Please Say this is a test."}
-    ]
-    )
-
-    print(completion.choices[0].message)
-    print(completion._request_id)
+    prompt = "Please create a prompt for design a print-on-demand product that includes both an illustration and a motivational quote use on ideogram"
+    print(request_chatGPT_API(prompt, 100))
