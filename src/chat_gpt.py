@@ -11,13 +11,13 @@ def request_chatGPT_API(message, max_token=None):
     API_KEY = os.environ.get("OPENAI_API_KEY")
     headers = copy.deepcopy(HEADERS)
     headers["Authorization"] = f"Bearer {API_KEY}"
-    print(headers)
+    # print(headers)
     # Define payload
     payload = copy.deepcopy(PAYLOAD)
     if max_token:
         payload["max_tokens"] = max_token
     payload["messages"][1]["content"] = message
-    print(payload)
+    # print(payload)
     # Make API call
     response = requests.post(URL_API, headers=headers, data=json.dumps(payload))
 
