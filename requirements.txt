@@ -1,0 +1,10 @@
+pandas
+beautifulsoup4
+numpy
+python-dotenv
+selenium
+pymysql
+requests
+jupyter
+webdriver_manager
+openai
