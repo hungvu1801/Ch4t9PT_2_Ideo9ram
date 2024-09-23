@@ -1,22 +1,34 @@
 import copy
-from config import URL_API, PAYLOAD, HEADERS
+from config import URL_API, PAYLOAD, HEADERS, MESSAGES
 from dotenv import load_dotenv
 import json
 import os
 import requests
 
-def request_chatGPT_API(message, max_token=None):
+def message_generator(user_prompt, previous_content=None):
+    messages = copy.deepcopy(MESSAGES)
+    if not previous_content:
+        # System content
+        messages[0]["content"] = "You are a helpful assistant."
+    else:
+        messages.append({"role": "assistant", "content": previous_content})
+    messages["messages"][1]["content"] = user_prompt
+    return messages
+
+def request_chatGPT_API(user_prompt, max_token=None, previous_content=None):
     load_dotenv()
     # define headers
     API_KEY = os.environ.get("OPENAI_API_KEY")
     headers = copy.deepcopy(HEADERS)
+    payload = copy.deepcopy(PAYLOAD)
+    
     headers["Authorization"] = f"Bearer {API_KEY}"
     # print(headers)
     # Define payload
-    payload = copy.deepcopy(PAYLOAD)
     if max_token:
         payload["max_tokens"] = max_token
-    payload["messages"][1]["content"] = message
+    messages = message_generator(user_prompt, previous_content)
+    payload["messages"] = messages
     # print(payload)
     # Make API call
     response = requests.post(URL_API, headers=headers, data=json.dumps(payload))
