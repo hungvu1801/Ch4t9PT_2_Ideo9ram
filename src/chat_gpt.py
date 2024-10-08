@@ -12,7 +12,7 @@ def message_generator(user_prompt, previous_content=None):
         messages[0]["content"] = "You are a helpful assistant."
     else:
         messages.append({"role": "assistant", "content": previous_content})
-    messages["messages"][1]["content"] = user_prompt
+    messages[1]["content"] = user_prompt
     return messages
 
 def request_chatGPT_API(user_prompt, max_token=None, previous_content=None):
