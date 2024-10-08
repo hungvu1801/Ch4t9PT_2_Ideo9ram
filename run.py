@@ -1,4 +1,14 @@
-from src.main import main
+from src.chat_gpt import request_chatGPT_API
 
 if __name__ == "__main__":
-    main()
+    prompt = """
+    Date	Exchange	ROI_mean	ROI_std	ROI_min	ROI_max	PNL_mean	PNL_std	PNL_min	PNL_max
+    2024-10-03	Binance	-3.572428735	57.62664601	-100	1285.697646	-841.945387	17365.85803	-970940.18	78628.5
+    2024-10-03	OKX	1.258648924	39.55036336	-100	1524.62	-446.8714702	13107.20361	-433983.52	510529.69
+    2024-10-03	Bitget	-8.789518449	79.89466524	-807.03	1856.17	-693.3964103	8640.363879	-266737.11	80433.63
+    2024-10-03	Bybit	-6.385570498	50.1962379	-174.87	1400.54	-602.2354234	32083.04097	-1731231.71	252230.28
+    2024-10-03	Mexc	-6.759968187	54.53031516	-1100.05	584.12	-88.24123492	5282.984232	-98290.48	131687.43
+    2024-10-03	XT	-4.393296703	80.5064194	-99.8	458.95	-270.8291892	5199.957241	-26688.47	36969.55. 
+    Please rank exchages based on ROI PnL mean and std. Give your analyst reason why the ranking. Limit 200 words for your analyst
+    """
+    print(request_chatGPT_API(prompt, 200))
